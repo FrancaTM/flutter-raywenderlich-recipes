@@ -9,23 +9,17 @@ void main() {
 class RecipeApp extends StatelessWidget {
   const RecipeApp({Key? key}) : super(key: key);
 
-  // 1
   @override
   Widget build(BuildContext context) {
-    // 2
     final ThemeData theme = ThemeData();
-    // 3
     return MaterialApp(
-      // 4
       title: 'Recipe Calculator',
-      // 5
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
           primary: Colors.grey,
           secondary: Colors.black,
         ),
       ),
-      // 6
       home: const MyHomePage(title: 'Recipe Calculator'),
     );
   }
@@ -52,23 +46,28 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // 1
     return Scaffold(
-      // 2
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      // 3
       body: SafeArea(
-        // 4
         child: ListView.builder(
-            // 5
             itemCount: Recipe.samples.length,
-            // 6
             itemBuilder: (BuildContext context, int index) {
-              // 7
-              // TODO: Add GestureDetector
-              return buildRecipeCard(Recipe.samples[index]);
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        // TODO: Replace return with return RecipeDetail()
+                        return Text('Detail Page');
+                      },
+                    ),
+                  );
+                },
+                child: buildRecipeCard(Recipe.samples[index]),
+              );
             }),
       ),
     );
